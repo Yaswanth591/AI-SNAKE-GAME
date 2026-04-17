@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #020202;
+  --color-card-bg: #090909;
+  --color-neon-cyan: #00ffff;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-green: #ffffff;
+  --color-neon-red: #ff00ff;
+  --color-text-main: #00ffff;
+  --color-text-dim: #77aaaa;
+  --color-border-color: #333333;
+
+  --font-mono: 'VT323', monospace;
+  --font-sans: 'VT323', monospace;
+  --font-neon: 'Press Start 2P', cursive;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-main);
+  font-family: var(--font-mono);
+  margin: 0;
+  padding: 0;
+  image-rendering: auto; /* Fallback */
+  image-rendering: pixelated;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.03) 2px,
+    rgba(0, 255, 255, 0.03) 4px
+  );
+}
+
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-3px, 2px) }
+  40% { transform: translate(-1px, -2px) }
+  60% { transform: translate(3px, 1px) }
+  80% { transform: translate(1px, -1px) }
+  100% { transform: translate(0) }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-5deg); }
+  40% { transform: skew(4deg); }
+  60% { transform: skew(-3deg); }
+  80% { transform: skew(5deg); }
+  100% { transform: skew(0deg); }
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+  animation: glitch-skew 3s infinite alternate-reverse;
+}
+
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-base);
+}
+
+.glitch::before {
+  left: 3px;
+  text-shadow: -2px 0 var(--color-neon-magenta);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+  clip-path: inset(10% 0 80% 0);
+}
+
+.glitch::after {
+  left: -3px;
+  text-shadow: -2px 0 var(--color-neon-cyan);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+  clip-path: inset(80% 0 5% 0);
+}
+
+/* Custom styling for range inputs */
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 14px;
+  width: 14px;
+  border-radius: 0;
+  background: var(--color-neon-cyan);
+  border: 2px solid var(--color-neon-magenta);
+  cursor: pointer;
+  margin-top: -5px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: var(--color-border-color);
+}
